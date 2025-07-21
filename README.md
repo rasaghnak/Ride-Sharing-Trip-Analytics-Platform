@@ -3,12 +3,6 @@ Ride‑Sharing Trip Analytics Platform — Snowflake Layer
 This README describes how to deploy a production‑ready Snowflake data‑warehouse layer for the Ride‑Sharing Trip Analytics Platform. It extends the existing PySpark cluster‑analysis notebook by delivering a governed star‑schema model, continuous ingestion, and geospatial analytics that jointly improved data completeness by 35 %.
  
 1  High‑Level Architecture
-┌──────────────┐      ┌─────────────────┐      ┌──────────────────┐
-│ S3 / GCS /   │      │ Snowpipe        │      │ Snowflake        │
-│ Kafka Topics │ ───▶ │ (Continuous     │ ───▶ │ STAGE_*_RAW      │
-└──────────────┘      │  ingestion)     │      │ Streams + Tasks │
-                      └─────────────────┘      │  Star Schema    │
-                                               └──────────────────┘
 1.	Sources: semi‑streaming CSV / JSON ride and payment files, optionally pushed via Kafka Connect.
 2.	Ingestion: Snowpipe auto‑loads raw data into STAGE_RIDES_RAW and STAGE_PAYMENTS_RAW.
 3.	Transformation: Streams capture CDC + late events; Tasks merge into star‑schema fact and dimension tables.
